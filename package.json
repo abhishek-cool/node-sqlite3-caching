@@ -16,6 +16,7 @@
     "fast-csv": "^4.3.6",
     "memory-cache": "^0.2.0",
     "nodemon": "^2.0.14",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "swagger-ui-express": "^4.1.6"
   }
 }

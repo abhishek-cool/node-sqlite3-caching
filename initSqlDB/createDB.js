@@ -34,31 +34,32 @@ function initializeDb(res) {
             placeHolder5
           );
         } catch (err) {
-          console.log(err);
+          // console.log(err);
+          res.status(400).send("Unable to access the DB or Run the query");
         }
       })
       .on("end", function () {
-        console.log("done with csv");
+        // console.log("done with csv");
         //   res.send("completed creating DB");
         stmt.finalize();
-        db.each(
-          "SELECT id,area,year,value,cat_type,category FROM gases",
-          function (err, row) {
-            //   area,year,value,cat_type,category
-            //   console.log(
-            //     "User id : " + row.id,
-            //     row.area,
-            //     row.year,
-            //     row.value,
-            //     row.cat_type,
-            //     row.category
-            //   );
-            res.write(`<p>${JSON.stringify(row)}</p>`);
-          }
-        );
+        // db.each(
+        //   "SELECT id,area,year,value,cat_type,category FROM gases",
+        //   function (err, row) {
+        //     //   area,year,value,cat_type,category
+        //     //   console.log(
+        //     //     "User id : " + row.id,
+        //     //     row.area,
+        //     //     row.year,
+        //     //     row.value,
+        //     //     row.cat_type,
+        //     //     row.category
+        //     //   );
+        //     res.write(`<p>${JSON.stringify(row)}</p>`);
+        //   }
+        // );
         db.close();
         // fs.close();
-        // res.end("done");
+        res.status(200).send("GreenHouse DB created using SQLite3 package");
       });
   });
 }

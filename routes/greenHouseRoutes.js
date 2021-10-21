@@ -19,10 +19,12 @@ router.get("/allData", cacheMiddleware(900), (req, res) => {
     db.all(
       "SELECT id,area AS location, year, value,cat_type AS gasType,category FROM gases",
       function (err, row) {
-        if (err) console.log(err);
-        else {
+        if (err) {
+          // console.log(err);
+          res.status(400).send("Unable to access the DB or Run the query");
+        } else {
           addInAllData(row);
-          res.json(allData);
+          res.status(200).json(allData);
         }
       }
     );
@@ -38,10 +40,12 @@ router.get("/countries", cacheMiddleware(900), (req, res) => {
       "SELECT id,area AS location,MIN(year) AS startYear, MAX(year) AS endYear, AVG(value) as value,cat_type AS gasType,category FROM gases GROUP BY area HAVING startYear > 1900",
 
       function (err, row) {
-        if (err) console.log(err);
-        else {
+        if (err) {
+          // console.log(err);
+          res.status(400).send("Unable to access the DB or Run the query");
+        } else {
           addData(row);
-          res.json(myData);
+          res.status(200).json(myData);
         }
       }
     );
@@ -208,7 +212,7 @@ router.get("/countries/id", cacheMiddleware(900), (req, res) => {
         if (err) console.log(err);
         else {
           // addData(row);
-          res.json(row);
+          res.status(200).json(row);
         }
       }
     );
